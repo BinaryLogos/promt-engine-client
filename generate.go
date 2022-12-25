@@ -7,7 +7,7 @@ import (
 )
 
 // Generate sends a request to the promt engine /generate/promt endpoint
-func (c *client) Generate(req model.PromptRequest) ([]byte, error) {
+func (c *client) Generate(req model.PromptRequest) (*model.PromptResponse, error) {
 	request, err := json.Marshal(req)
 	if err != nil {
 		return nil, err
@@ -18,5 +18,12 @@ func (c *client) Generate(req model.PromptRequest) ([]byte, error) {
 		return nil, err
 	}
 
-	return body, nil
+	var resp model.PromptResponse
+
+	err = json.Unmarshal(body, &resp)
+	if err != nil {
+		return nil, err
+	}
+
+	return &resp, nil
 }
