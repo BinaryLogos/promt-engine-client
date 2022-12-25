@@ -12,6 +12,10 @@ type client struct {
 	httpClient *http.Client
 }
 
+const (
+	generateEndpoint = `/generate/promt`
+)
+
 // NewClients creates a client object and check if the information provided are not empty
 func NewClient(domain string, httpClient *http.Client) (*client, error) {
 	switch {
